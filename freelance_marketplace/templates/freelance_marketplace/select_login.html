@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Choose Login Type</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif;}
+    body {
+      background: linear-gradient(135deg, #5f5f5f, #4e4f4e);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wrapper {
+      background: rgba(169, 181, 181, 0.95);
+      width: 850px;
+      border-radius: 18px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+      padding: 50px 60px;
+      text-align: center;
+      animation: fadeIn 1s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity:0; transform:translateY(20px); }
+      to { opacity:1; transform:translateY(0); }
+    }
+    .wrapper h1 {
+      color: #5102fa;
+      font-size: 32px;
+      margin-bottom: 35px;
+      font-weight: 600;
+    }
+    .roles {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 25px;
+    }
+    .role {
+      width: 240px;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 30px 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .role:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+    .role i {
+      font-size: 40px;
+      color: #00b22d;
+      margin-bottom: 15px;
+    }
+    .role h2 {
+      font-size: 20px;
+      color: #222;
+      margin-bottom: 15px;
+    }
+    .role a {
+      display: inline-block;
+      margin: 6px 0;
+      padding: 10px 18px;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 500;
+      font-size: 15px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .login-btn { background-color: #00b22d; }
+    .login-btn:hover { background-color: #009524; }
+    .register-btn { background-color: #333; }
+    .register-btn:hover { background-color: #111; }
+    footer {margin-top: 35px; color: #777; font-size: 13px;}
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Welcome! Choose Your Login Type</h1>
+
+    <div class="roles">
+      <div class="role">
+        <i class="fas fa-user-shield"></i>
+        <h2>Admin</h2>
+        <a href="{% url 'freelance_marketplace:admin_login' %}" class="login-btn">Login</a>
+      </div>
+
+      <div class="role">
+        <i class="fas fa-briefcase"></i>
+        <h2>Freelancer</h2>
+        <a href="{% url 'freelance_marketplace:freelancer_login' %}" class="login-btn">Login</a>
+        <a href="{% url 'freelance_marketplace:freelancer_register' %}" class="register-btn">Register</a>
+      </div>
+      <div class="role">
+        <i class="fas fa-users"></i>
+        <h2>Customer</h2>
+        <a href="{% url 'freelance_marketplace:customer_login' %}" class="login-btn">Login</a>
+        <a href="{% url 'freelance_marketplace:customer_register' %}" class="register-btn">Register</a>
+      </div>
+    </div>
+
+    <footer>sins 2025 | All Rights Reserved</footer>
+  </div>
+</body>
+</html>

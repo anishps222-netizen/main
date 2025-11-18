@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ category.name }} | Freelance Workplace{% endblock %}
+
+{% block content %}
+
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="fw-bold text-center mb-5">{{ category.name }} Gigs</h2>
+
+    {% if gigs %}
+    <div class="row g-4">
+      {% for gig in gigs %}
+      <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card gig-card border-0 shadow-sm h-100 hover-card">
+
+        
+          {% if gig.image %}
+            <img src="{{ gig.image.url }}" class="card-img-top" alt="{{ gig.title }}" style="height:180px; object-fit:cover;">
+          {% else %}
+            <img src="{% static 'images/data_analysis.png' %}" class="card-img-top" alt="{{ gig.title }}" style="height:180px; object-fit:cover;">
+          {% endif %}
+
+      
+          <div class="card-body text-center">
+            <h5 class="gig-title fw-semibold">{{ gig.title|truncatechars:45 }}</h5>
+            <p class="text-muted small mb-1">by {{ gig.freelancer.username }}</p>
+
+            {% if gig.average_rating %}
+              <div class="text-warning small mb-2">
+                ⭐ {{ gig.average_rating }} ({{ gig.reviews.count }})
+              </div>
+            {% endif %}
+
+            <p class="text-success fw-semibold mb-2">Starting at ${{ gig.price }}</p>
+
+            <a href="{% url 'freelance_marketplace:order_gig' gig.id %}" class="btn btn-success btn-sm rounded-pill px-3">
+              Order Now
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+      <p class="text-center text-muted mt-4">No gigs available in this category yet.</p>
+    {% endif %}
+  </div>
+</section>
+
+
+<style>
+  body {
+    background-color: #f7f7f7;
+  }
+
+  .gig-card {
+    border-radius: 14px;
+    background: #fff;
+    transition: all 0.3s ease;
+  }
+
+  .hover-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+
+  .gig-card img {
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+  }
+
+  .gig-title {
+    font-size: 1rem;
+    color: #222;
+  }
+
+  .btn-success {
+    background-color: #1DBF73;
+    border-color: #1DBF73;
+  }
+
+  .btn-success:hover {
+    background-color: #17a566;
+    border-color: #17a566;
+  }
+
+  h2 {
+    border-left: 5px solid #1DBF73;
+    padding-left: 10px;
+    display: inline-block;
+  }
+</style>
+
+{% endblock %}

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Dashboard | Freelance Marketplace</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", Arial, sans-serif;
+      background-color: gray;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background-color: #fff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar h2 {
+      font-size: 22px;
+      color: #1dbf73;
+      font-weight: 700;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      background-color: #1dbf73;
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .navbar a:hover {
+      background-color: #13a162;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background-color: #b3ced6;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 40px 50px;
+    }
+
+    .welcome {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .welcome h2 {
+      color: #1dbf73;
+      font-size: 26px;
+      font-weight: 700;
+    }
+
+    .welcome p {
+      color: #6b7280;
+      font-size: 15px;
+      margin-top: 8px;
+    }
+    
+    .orders {
+      margin-top: 30px;
+    }
+
+    .orders h3 {
+      color: #1e293b;
+      font-size: 20px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    ul.orders-list {
+      list-style: none;
+    }
+
+    ul.orders-list li {
+      background: #f9fafb;
+      margin-bottom: 15px;
+      border-left: 5px solid #1dbf73;
+      border-radius: 8px;
+      padding: 15px 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .order-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .order-title {
+      font-weight: 600;
+      color: #111827;
+      font-size: 16px;
+    }
+
+    .order-status {
+      background-color: #e0f7ee;
+      color: #1dbf73;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 5px;
+      display: inline-block;
+    }
+
+    .chat-btn {
+      background-color: #1dbf73;
+      color: #fff;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+
+    .chat-btn:hover {
+      background-color: #13a162;
+    }
+
+    .no-orders {
+      text-align: center;
+      color: #6b7280;
+      font-style: italic;
+      margin-top: 15px;
+    }
+
+    .active-chats {
+      background: #f9fafb;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 40px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .active-chats h5 {
+      color: #1dbf73;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .chat-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #fff;
+      border-left: 4px solid #1dbf73;
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .chat-item span {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .chat-item a {
+      border: 1px solid #1dbf73;
+      color: #1dbf73;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .chat-item a:hover {
+      background-color: #1dbf73;
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      ul.orders-list li {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .order-status, .chat-btn {
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h2>Freelance Marketplace</h2>
+    <a href="{% url 'freelance_marketplace:logout' %}">Logout</a>
+  </div>
+
+  <div class="container">
+    <div class="welcome">
+      <h2>Welcome, {{ request.user.username }}</h2>
+      <p>Manage your orders and chat with your freelancers.</p>
+    </div>
+
+    <div class="orders">
+      <h3>Your Orders</h3>
+
+      <ul class="orders-list">
+        {% for order in orders %}
+        <li>
+          <div class="order-info">
+            <span class="order-title">{{ order.gig.title }}</span>
+            <span class="order-status">
+              {% if order.is_completed %}
+                Completed
+              {% elif order.is_pending %}
+                Pending
+              {% else %}
+                Order Confirmed
+              {% endif %}
+            </span>
+          </div>
+        </li>
+        {% empty %}
+        <p class="no-orders">You have no orders yet. Start hiring amazing freelancers today!</p>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="active-chats">
+      <h5>Active Chats</h5>
+      {% for order in orders|slice:":3" %}
+        <div class="chat-item">
+          <span>{{ order.gig.title }}</span>
+          <a href="{% url 'freelance_marketplace:chat_view' order.id %}">Open</a>
+        </div>
+      {% empty %}
+        <p class="text-muted text-center">No active chats yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+</html>

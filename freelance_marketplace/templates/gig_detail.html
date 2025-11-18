@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ gig.title }} | Gig Details{% endblock %}
+
+{% block content %}
+<section class="py-5" style="background-color: #383838; color: #f1f1f1;">
+  <div class="container">
+    
+  
+    <div class="row mb-4 align-items-center">
+      <div class="col-md-8 mx-auto">
+        <h2 class="fw-bold text-white">{{ gig.title }}</h2>
+        <p class="text-light">{{ gig.description }}</p>
+        <h4 class="text-success fw-semibold mb-3">Starting at ${{ gig.price }}</h4>
+        <p>⭐ <strong>{{ gig.average_rating|default:"No ratings yet" }}</strong> ({{ reviews.count }} Reviews)</p>
+
+        
+        <div class="d-flex flex-wrap gap-2 mt-3">
+          {% if user.is_authenticated and user.role == 'customer' %}
+            <form method="POST" action="{% url 'freelance_marketplace:order_gig' gig.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-success">Order Now</button>
+            </form>
+
+            {% if order %}
+              <a href="{% url 'freelance_marketplace:chat' order.id %}" class="btn btn-outline-light">
+                 Chat with Freelancer
+              </a>
+            {% endif %}
+
+          {% elif user.is_authenticated and user.role == 'freelancer' and gig.freelancer == user %}
+            <a href="{% url 'freelance_marketplace:freelancer_dashboard' %}" class="btn btn-outline-success">
+              ← Back to Dashboard
+            </a>
+
+          {% elif not user.is_authenticated %}
+            <a href="{% url 'freelance_marketplace:customer_login' %}" class="btn btn-outline-light">Login to Order</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <hr class="my-4 border-secondary">
+
+    
+    <div class="row">
+      <div class="col-md-8">
+        <h4 class="fw-semibold mb-3 text-white">Customer Reviews</h4>
+        {% if reviews %}
+          {% for review in reviews %}
+          <div class="border rounded p-3 mb-3" style="background-color: #2c2c2c;">
+            <div class="d-flex justify-content-between">
+              <h6 class="fw-bold text-light">{{ review.customer.username }}</h6>
+              <span class="text-warning">⭐ {{ review.rating }}/5</span>
+            </div>
+            <p class="text-muted mb-1">{{ review.comment }}</p>
+            <small class="text-secondary">{{ review.created_at|date:"M d, Y" }}</small>
+          </div>
+          {% endfor %}
+        {% else %}
+          <p class="text-light">No reviews yet. Be the first to review!</p>
+        {% endif %}
+      </div>
+
+
+      {% if user.is_authenticated and user.role == 'customer' %}
+      <div class="col-md-4">
+        <h5 class="fw-semibold mb-3 text-white">Leave a Review</h5>
+        <form method="POST" class="p-3 rounded" style="background-color: #2c2c2c;">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label class="form-label text-light">Rating</label>
+            <select name="rating" class="form-select bg-dark text-light border-secondary" required>
+              <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+              <option value="4">⭐⭐⭐⭐ (4)</option>
+              <option value="3">⭐⭐⭐ (3)</option>
+              <option value="2">⭐⭐ (2)</option>
+              <option value="1">⭐ (1)</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label text-light">Comment</label>
+            <textarea name="comment" class="form-control bg-dark text-light border-secondary" rows="3" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Submit Review</button>
+        </form>
+      </div>
+      {% else %}
+      <div class="col-md-4 text-center mt-4">
+        <p class="text-light">Only customers can post reviews.</p>
+        <a href="{% url 'freelance_marketplace:customer_login' %}" class="btn btn-outline-light">Login as Customer</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .btn-success {
+    background-color: #1dbf73;
+    border: none;
+  }
+  .btn-success:hover {
+    background-color: #17a864;
+  }
+  .btn-outline-light:hover {
+    background-color: #f1f1f1;
+    color: #222;
+  }
+  .btn-outline-success {
+    border-color: #1dbf73;
+    color: #1dbf73;
+  }
+  .btn-outline-success:hover {
+    background-color: #1dbf73;
+    color: #fff;
+  }
+</style>
+{% endblock %}

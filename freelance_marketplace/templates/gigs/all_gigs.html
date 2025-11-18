@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+  <h3 class="text-center mb-4">Explore Freelance Gigs</h3>
+  <div class="row">
+    {% for gig in gigs %}
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        {% if gig.image %}
+        <img src="{{ gig.image.url }}" class="card-img-top">
+        {% endif %}
+        <div class="card-body">
+          <h5>{{ gig.title }}</h5>
+          <p>{{ gig.category|title }}</p>
+          <p>₹{{ gig.price }}</p>
+          <a href="{% url 'freelance_marketplace:gig_detail' gig.id %}" class="btn btn-primary btn-sm">View Gig</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

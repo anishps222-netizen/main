@@ -1,0 +1,28 @@
+{% extends "freelance_marketplace/admin_dashboard.html" %}
+{% block content %}
+<div class="table-section">
+    <h2 style="margin-bottom:15px;color:#1e3a8a;">All Reviews</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Gig</th>
+                <th>Customer</th>
+                <th>Rating</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in reviews %}
+            <tr>
+                <td>{{ r.gig.title }}</td>
+                <td>{{ r.customer.name }}</td>
+                <td>{{ r.rating }}</td>
+                <td>{{ r.comment }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">No reviews yet</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

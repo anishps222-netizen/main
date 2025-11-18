@@ -1,0 +1,79 @@
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f7f7f7;
+  margin: 0;
+  padding: 0;
+}
+
+.category-section, .popular-categories, .featured-gigs {
+  width: 90%;
+  margin: 40px auto;
+}
+
+.category-title, .popular-categories h2, .featured-gigs h2 {
+  font-size: 28px;
+  color: #222;
+  margin-bottom: 20px;
+  border-left: 5px solid #1DBF73;
+  padding-left: 10px;
+}
+
+.category-grid, .gig-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.category-card, .gig-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.category-card:hover, .gig-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.category-card {
+  text-align: center;
+  padding: 30px;
+  font-weight: 600;
+  color: #222;
+  text-decoration: none;
+}
+
+.category-card:hover {
+  background: #1DBF73;
+  color: #fff;
+}
+
+.gig-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.gig-info {
+  padding: 15px;
+}
+
+.gig-info h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 5px 0;
+}
+
+.seller {
+  color: #888;
+  font-size: 14px;
+}
+
+.price {
+  color: #1DBF73;
+  font-weight: 700;
+}

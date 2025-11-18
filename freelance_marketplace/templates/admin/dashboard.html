@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mx-auto py-10">
+  <h1 class="text-3xl font-bold mb-8">Freelancer Dashboard</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white p-6 rounded shadow">
+      <h2 class="text-xl font-semibold">Total Customers</h2>
+      <p class="text-2xl mt-2">{{ total_customers }}</p>
+    </div>
+    <div class="bg-white p-6 rounded shadow">
+      <h2 class="text-xl font-semibold">Total Orders</h2>
+      <p class="text-2xl mt-2">{{ total_orders }}</p>
+    </div>
+    <div class="bg-white p-6 rounded shadow">
+      <h2 class="text-xl font-semibold">Total Income</h2>
+      <p class="text-2xl mt-2">${{ total_income }}</p>
+    </div>
+  </div>
+
+  <h2 class="text-2xl font-bold mb-4">Recent Orders</h2>
+  <table class="min-w-full bg-white shadow rounded overflow-hidden">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="py-2 px-4">Order ID</th>
+        <th class="py-2 px-4">Customer</th>
+        <th class="py-2 px-4">Gig</th>
+        <th class="py-2 px-4">Price</th>
+        <th class="py-2 px-4">Status</th>
+        <th class="py-2 px-4">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in recent_orders %}
+      <tr class="border-b">
+        <td class="py-2 px-4">{{ order.id }}</td>
+        <td class="py-2 px-4">{{ order.customer.user.username }}<br>{{ order.customer.user.email }}</td>
+        <td class="py-2 px-4">{{ order.gig.title }}</td>
+        <td class="py-2 px-4">${{ order.gig.price }}</td>
+        <td class="py-2 px-4">{{ order.status }}</td>
+        <td class="py-2 px-4">
+          {% if order.status != 'Confirmed' %}
+  <a href="{% url 'freelance_marketplace:confirm_order' order.id %}" 
+     class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700">
+     {% if order.status %}
+       Confirm
+     {% else %}
+       Mark as Confirmed
+     {% endif %}
+  </a>
+{% else %}
+  <span class="text-green-600 font-semibold">Confirmed</span>
+{% endif %}
+
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="6" class="text-center py-4">No recent orders.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Login | Freelance Marketplace</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", Arial, sans-serif;
+      background-color: #1f3659;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .login-box {
+      background: #e7e1e1;
+      width: 380px;
+      padding: 40px 45px;
+      border-radius: 14px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .login-box:hover {
+      transform: translateY(-4px);
+    }
+
+    .login-box h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1dbf73; 
+      margin-bottom: 8px;
+    }
+
+    .login-box p {
+      color: #6b7280;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 20px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #1dbf73;
+      outline: none;
+      box-shadow: 0 0 6px rgba(29, 191, 115, 0.3);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #1dbf73;
+      color: white;
+      font-weight: 600;
+      font-size: 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #13a162;
+      transform: translateY(-2px);
+    }
+
+    .messages {
+      background-color: #fee2e2;
+      color: #b91c1c;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .footer a {
+      color: #1dbf73;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+      .login-box {
+        width: 90%;
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Customer Login</h2>
+    <p>Welcome back! Log in to continue</p>
+
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+      <input type="text" name="username" placeholder="Username" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="footer">
+      Don't have an account? 
+      <a href="{% url 'freelance_marketplace:customer_register' %}">Join Now</a>
+    </div>
+  </div>
+</body>
+</html>

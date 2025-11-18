@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand-lg bg-white shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold text-success" href="{% url 'freelance_marketplace:home' %}">Freelance Workplace</a>
+    <div>
+      {% if user.is_authenticated %}
+      <form method="POST" action="{% url 'freelance_marketplace:logout' %}">
+        {% csrf_token %}
+        <button class="btn btn-outline-danger">Logout</button>
+      </form>
+      {% else %}
+      <a href="{% url 'freelance_marketplace:select_login' %}" class="btn btn-success">Login</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>

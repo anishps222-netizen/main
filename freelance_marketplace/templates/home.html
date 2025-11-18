@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Freelance Workplace | Hire Freelancers & Find Work{% endblock %}
+
+{% block content %}
+
+
+<section
+  class="text-center text-white d-flex align-items-center justify-content-center flex-column"
+  style="background: url('{% static 'images/homepage4.jpg' %}') center/cover no-repeat; height: 600px;">
+  
+  <div class="bg-dark bg-opacity-50 p-5 rounded mb-4">
+    <h1 class="display-4 fw-bold mb-3">Find the Perfect Freelance Services</h1>
+    <p class="lead mb-4">Work with talented freelancers from around the world.</p>
+    <form method="GET" action="{% url 'freelance_marketplace:all_gigs' %}" class="d-flex justify-content-center">
+      <input
+        type="text"
+        name="search"
+        class="form-control w-50 rounded-start-pill"
+        placeholder="Search for services (e.g. logo design, web development)"
+      />
+      <button type="submit" class="btn btn-success rounded-end-pill px-4">Search</button>
+    </form>
+  </div>
+
+  {% if user.is_authenticated %}
+    <p class="text-success mb-3">You’re logged in as {{ user.username }}</p>
+
+    <form method="POST" action="{% url 'freelance_marketplace:logout' %}" class="mt-3">
+      {% csrf_token %}
+      <button class="btn btn-danger btn-lg">Logout</button>
+    </form>
+
+  {% else %}
+    <div class="mt-4">
+      <a href="{% url 'freelance_marketplace:select_login' %}" class="btn btn-outline-light">Login / Register</a>
+    </div>
+  {% endif %}
+</section>
+
+
+<section class="py-5 bg-light">
+  <div class="container text-center">
+    <h2 class="mb-5 fw-semibold text-dark"> Popular Categories</h2>
+    <div class="row g-4 justify-content-center">
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+        <a href="{% url 'freelance_marketplace:category_page' 'programming-tech' %}" class="text-decoration-none text-dark">
+          <div class="card category-card hover-card">
+            <img src="{% static 'images/programming_tech.jpg' %}" class="category-img" alt="Programming & Tech">
+            <div class="category-body"><h6>Programming & Tech</h6></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+        <a href="{% url 'freelance_marketplace:category_page' 'graphic-design' %}" class="text-decoration-none text-dark">
+          <div class="card category-card hover-card">
+            <img src="{% static 'images/new_gd.jpg' %}" class="category-img" alt="Graphic & Design">
+            <div class="category-body"><h6>Graphic & Design</h6></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+        <a href="{% url 'freelance_marketplace:category_page' 'digital-marketing' %}" class="text-decoration-none text-dark">
+          <div class="card category-card hover-card">
+            <img src="{% static 'images/digital_marketing.jpg' %}" class="category-img" alt="Digital Marketing">
+            <div class="category-body"><h6>Digital Marketing</h6></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+        <a href="{% url 'freelance_marketplace:category_page' 'writing-translations' %}" class="text-decoration-none text-dark">
+          <div class="card category-card hover-card">
+            <img src="{% static 'images/writing_translations.jpg' %}" class="category-img" alt="Writing & Translations">
+            <div class="category-body"><h6>Writing & Translations</h6></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+        <a href="{% url 'freelance_marketplace:category_page' 'video-animation' %}" class="text-decoration-none text-dark">
+          <div class="card category-card hover-card">
+            <img src="{% static 'images/video_animation.jpg' %}" class="category-img" alt="Video & Animation">
+            <div class="category-body"><h6>Video & Animation</h6></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+        <a href="{% url 'freelance_marketplace:category_page' 'ai-services' %}" class="text-decoration-none text-dark">
+          <div class="card category-card hover-card">
+            <img src="{% static 'images/AI_services.jpg' %}" class="category-img" alt="AI Services">
+            <div class="category-body"><h6>AI Services</h6></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="py-5 bg-white">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-semibold text-dark"> Explore Popular Gigs</h2>
+    <div class="row g-4 justify-content-center">
+
+      <div class="col-md-3 col-sm-6">
+        <div class="card shadow-sm border-0 h-100 hover-card">
+          <img src="{% static 'images/web_dev_gig.jpg' %}" class="card-img-top rounded-top" alt="Website Development" style="height:200px; object-fit:cover;">
+          <div class="card-body text-center">
+            <h5 class="fw-semibold">Website Development</h5>
+            <p class="text-muted small mb-2">Starting at $50</p>
+            <a href="{% url 'freelance_marketplace:all_gigs' %}" class="btn btn-outline-success btn-sm">View Gig</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="card shadow-sm border-0 h-100 hover-card">
+          <img src="{% static 'images/logo_design_gig.jpg' %}" class="card-img-top rounded-top" alt="Logo Design" style="height:200px; object-fit:cover;">
+          <div class="card-body text-center">
+            <h5 class="fw-semibold">Logo Design</h5>
+            <p class="text-muted small mb-2">Starting at $30</p>
+            <a href="{% url 'freelance_marketplace:all_gigs' %}" class="btn btn-outline-success btn-sm">View Gig</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="card shadow-sm border-0 h-100 hover-card">
+          <img src="{% static 'images/seo_gig.jpg' %}" class="card-img-top rounded-top" alt="SEO Optimization" style="height:200px; object-fit:cover;">
+          <div class="card-body text-center">
+            <h5 class="fw-semibold">SEO Optimization</h5>
+            <p class="text-muted small mb-2">Starting at $40</p>
+            <a href="{% url 'freelance_marketplace:all_gigs' %}" class="btn btn-outline-success btn-sm">View Gig</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="card shadow-sm border-0 h-100 hover-card">
+          <img src="{% static 'images/social_media_gig.jpg' %}" class="card-img-top rounded-top" alt="Social Media Marketing" style="height:200px; object-fit:cover;">
+          <div class="card-body text-center">
+            <h5 class="fw-semibold">Social Media Marketing</h5>
+            <p class="text-muted small mb-2">Starting at $35</p>
+            <a href="{% url 'freelance_marketplace:all_gigs' %}" class="btn btn-outline-success btn-sm">View Gig</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section class="py-5 text-center text-white" style="background-color:#858685;">
+  <div class="container">
+    <h2 class="fw-bold mb-3">Ready to get started?</h2>
+    <p class="lead mb-4">Join Freelance Workplace today and start your freelancing journey!</p>
+    <a href="{% url 'freelance_marketplace:register' %}" class="btn btn-light btn-lg rounded-pill">Join Now</a>
+  </div>
+</section>
+
+
+<style>
+  .hover-card { transition: all 0.3s ease; border-radius: 12px; }
+  .hover-card:hover { transform: translateY(-6px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+  .category-card { border: none; border-radius: 12px; overflow: hidden; height: 220px; display: flex; flex-direction: column; justify-content: space-between; }
+  .category-img { height: 140px; object-fit: cover; }
+  .category-body { padding: 10px; background-color: #fff; display: flex; align-items: center; justify-content: center; height: 80px; }
+  .category-body h6 { font-size: 0.95rem; font-weight: 600; margin: 0; }
+</style>
+
+{% endblock %}

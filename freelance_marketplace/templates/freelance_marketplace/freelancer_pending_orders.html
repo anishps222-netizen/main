@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}Pending Orders | Freelancer Dashboard{% endblock %}
+
+{% block content %}
+<section class="py-5" style="background-color:#f8f9fa; min-height:100vh;">
+  <div class="container">
+    <h2 class="fw-bold text-success mb-4 text-center">Pending Orders</h2>
+
+    {% if orders %}
+      <div class="table-responsive">
+        <table class="table table-hover align-middle bg-white shadow-sm rounded">
+          <thead class="table-success text-center">
+            <tr>
+              <th>#</th>
+              <th>Customer</th>
+              <th>Email</th>
+              <th>Gig Title</th>
+              <th>Payment</th>
+              <th>Order Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            {% for order in orders %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ order.customer.username }}</td>
+                <td>{{ order.customer.email }}</td>
+                <td>{{ order.gig.title }}</td>
+                <td>${{ order.payment_amount }}</td>
+                <td>
+                  {% if order.created_at %}
+                    {{ order.created_at|date:"M d, Y" }}
+                  {% else %}
+                    N/A
+                  {% endif %}
+                </td>
+                <td>
+                  <div class="d-flex flex-column gap-2 align-items-center">
+                    <form method="POST" class="d-inline">
+                      {% csrf_token %}
+                      <input type="hidden" name="order_id" value="{{ order.id }}">
+                      <button type="submit" class="btn btn-success btn-sm w-100">Confirm</button>
+                    </form>
+                    <a href="{% url 'freelance_marketplace:chat' order.id %}" class="btn btn-outline-success btn-sm w-100">
+                       Chat with {{ order.customer.username }}
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="text-center text-muted">No pending orders found for your gigs.</p>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .btn-success {
+    background-color: #1dbf73;
+    border: none;
+  }
+  .btn-success:hover {
+    background-color: #17a864;
+  }
+  .btn-outline-success {
+    color: #1dbf73;
+    border-color: #1dbf73;
+  }
+  .btn-outline-success:hover {
+    background-color: #1dbf73;
+    color: #fff;
+  }
+</style>
+{% endblock %}

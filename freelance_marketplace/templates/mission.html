@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Our Mission{% endblock %}
+
+{% block content %}
+
+<section
+  class="d-flex align-items-center justify-content-center text-center text-white"
+  style="background: url('{% static 'images/our_mission.jpg' %}') center/cover no-repeat; height: 400px;">
+  <div class="bg-dark bg-opacity-50 p-5 rounded-4">
+    <h1 class="display-5 fw-bold text-success">Our Mission</h1>
+    <p class="lead mt-3">Empowering freelancers and businesses to achieve more — together.</p>
+  </div>
+</section>
+
+<div class="container py-5">
+  <h1 class="text-center text-success fw-bold mb-4">Our Mission</h1>
+  <p class="lead text-center px-md-5">
+    At <strong>Freelance Workplace</strong>, our mission is to connect creative professionals with 
+    opportunities worldwide — giving freelancers the freedom to work from anywhere 
+    while helping businesses grow through top-notch talent.  
+    <br><br>
+    We believe in building a global community where skills, creativity, and collaboration
+    break boundaries and empower success.
+  </p>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}How It Works{% endblock %}
+
+{% block content %}
+
+<section
+  class="d-flex align-items-center justify-content-center text-center text-white"
+  style="background: url('{% static 'images/how_it.jpg' %}') center/cover no-repeat; height: 400px;">
+  <div class="bg-dark bg-opacity-50 p-5 rounded-4">
+    <h1 class="display-5 fw-bold text-success">How It Works</h1>
+    <p class="lead mt-3">Simple steps to connect clients and freelancers easily.</p>
+  </div>
+</section>
+
+
+<div class="container py-5">
+  <h1 class="text-center text-success fw-bold mb-4">How It Works</h1>
+  <div class="row text-center">
+    <div class="col-md-4 mb-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <h4 class="fw-semibold">1️⃣ Post a Project</h4>
+          <p>Clients post their needs, describe the project, and set their budget.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <h4 class="fw-semibold">2️⃣ Hire a Freelancer</h4>
+          <p>Freelancers send proposals, and clients choose the best talent.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <div class="card border-0 shadow-sm h-100">
+        <div class="card-body">
+          <h4 class="fw-semibold">3️⃣ Get Work Done</h4>
+          <p>Work is completed securely, and payments are handled safely.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

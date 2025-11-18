@@ -1,0 +1,26 @@
+{% extends "freelance_marketplace/admin_dashboard.html" %}
+{% block content %}
+<div class="table-section">
+    <h2 style="margin-bottom:15px;color:#1e3a8a;">All Freelancers</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Skills</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for f in freelancers %}
+            <tr>
+                <td>{{ f.name }}</td>
+                <td>{{ f.email }}</td>
+                <td>{{ f.skills }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3">No freelancers found</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

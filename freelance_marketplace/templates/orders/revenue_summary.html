@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2 class="text-center mb-4"> Revenue Summary</h2>
+
+  <div class="row text-center mb-4">
+    <div class="col-md-6">
+      <div class="card bg-success text-white p-3">
+        <h5>Total Completed Orders</h5>
+        <h3>{{ total_completed }}</h3>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card bg-primary text-white p-3">
+        <h5>Total Platform Earnings</h5>
+        <h3>${{ total_earnings }}</h3>
+      </div>
+    </div>
+  </div>
+
+  <h4 class="mb-3"> Top Freelancers</h4>
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Freelancer</th>
+        <th>Completed Orders</th>
+        <th>Total Earnings</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for f in top_freelancers %}
+      <tr>
+        <td>{{ f.freelancer__username }}</td>
+        <td>{{ f.total }}</td>
+        <td>${{ f.earnings }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="3">No completed orders yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

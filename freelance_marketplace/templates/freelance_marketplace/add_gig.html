@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Add New Gig{% endblock %}
+
+{% block content %}
+<section class="py-5" style="background-color: #7f7f80; min-height: 100vh;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card shadow-sm border-0 rounded-4">
+          <div class="card-body p-5">
+            <h3 class="fw-bold mb-4 text-center text-success">Add a New Gig</h3>
+
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="id_title" class="form-label fw-semibold">Gig Title</label>
+                <input type="text" name="title" class="form-control" id="id_title" placeholder="Enter your gig title" required>
+              </div>
+              <div class="mb-3">
+                <label for="id_description" class="form-label fw-semibold">Description</label>
+                <textarea name="description" class="form-control" id="id_description" rows="4" placeholder="Write a detailed description of your gig" required></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="id_price" class="form-label fw-semibold">Price ($)</label>
+                <input type="number" name="price" class="form-control" id="id_price" placeholder="Enter your price" step="0.01" required>
+              </div>
+              <div class="mb-3">
+                <label for="id_category" class="form-label fw-semibold">Category</label>
+                <select name="category" id="id_category" class="form-select" required>
+                  <option value="" selected disabled>Choose a category</option>
+                  <option value="1">Programming & Tech</option>
+                  <option value="2">Graphic & Design</option>
+                  <option value="3">Digital Marketing</option>
+                  <option value="4">Writing & Translation</option>
+                  <option value="5">Video & Animation</option>
+                  <option value="6">AI Services</option>
+                </select>
+              </div>
+              <div class="mb-4">
+                <label for="id_image" class="form-label fw-semibold">Upload Image</label>
+                <input type="file" name="image" class="form-control" id="id_image">
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-success btn-lg fw-bold">Add Gig</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

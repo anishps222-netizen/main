@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Error{% endblock %}
+{% block content %}
+<section class="py-5 text-center">
+  <div class="container">
+    <h2 class="text-danger fw-bold mb-3">Oops!</h2>
+    <p class="text-muted">{{ message }}</p>
+    <a href="{% url 'freelance_marketplace:customer_dashboard' %}" class="btn btn-outline-success mt-3">Back to Dashboard</a>
+  </div>
+</section>
+{% endblock %}

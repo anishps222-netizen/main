@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}{{ category.name }} Gigs{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="text-center mb-5">{{ category.name }} Gigs</h2>
+
+  <div class="row g-4 justify-content-center">
+    {% for gig in gigs %}
+    <div class="col-md-3 col-sm-6">
+      <div class="card shadow-sm border-0 h-100 hover-card">
+        {% if gig.image %}
+          <img src="{{ gig.image.url }}" class="card-img-top rounded-top" style="height:200px; object-fit:cover;">
+        {% endif %}
+        <div class="card-body text-center">
+          <h5 class="fw-semibold">{{ gig.title }}</h5>
+          <p class="text-muted small mb-2">${{ gig.price }}</p>
+          <p class="text-muted small">{{ gig.category.name }}</p>
+          {% if request.user.is_authenticated %}
+            {% if request.user.is_customer %}
+              <a href="{% url 'freelance_marketplace:order_gig' gig.id %}" class="btn btn-success btn-sm mt-2">Order Now</a>
+            {% else %}
+              <p class="text-danger small mt-2">Only customers can order gigs.</p>
+            {% endif %}
+          {% else %}
+            <a href="{% url 'freelance_marketplace:login_user' %}" class="btn btn-primary btn-sm mt-2">Login to Order</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% empty %}
+    <p class="text-center text-muted">No gigs found.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

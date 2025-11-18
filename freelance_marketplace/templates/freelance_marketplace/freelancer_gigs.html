@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}My Gigs | Freelancer Dashboard{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light" style="min-height:100vh;">
+  <div class="container">
+    <h2 class="fw-bold text-center mb-4 text-success">My Gigs</h2>
+
+    {% if gigs %}
+      <div class="row g-4">
+        {% for gig in gigs %}
+          <div class="col-md-4">
+            <div class="card shadow-sm border-0 rounded-4 h-100">
+              {% if gig.image %}
+                <img src="{{ gig.image.url }}" class="card-img-top rounded-top-4" alt="{{ gig.title }}">
+              {% endif %}
+              <div class="card-body">
+                <h5 class="fw-bold">{{ gig.title }}</h5>
+                <p class="text-muted small mb-2">{{ gig.description|truncatechars:80 }}</p>
+                <p class="fw-semibold text-success mb-1">💲 {{ gig.price }}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-center text-muted">You haven’t created any gigs yet.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "freelance_marketplace/admin_dashboard.html" %}
+{% block content %}
+<div class="table-section">
+    <h2 style="margin-bottom:15px;color:#1e3a8a;">All Orders</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Gig</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for o in orders %}
+            <tr>
+                <td>{{ o.customer.name }}</td>
+                <td>{{ o.gig.title }}</td>
+                <td>{{ o.status }}</td>
+                <td>{{ o.date_created }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">No orders found</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

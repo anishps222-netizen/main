@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Explore Gigs | Freelance Workplace{% endblock %}
+
+{% block content %}
+
+<section class="text-center text-white d-flex align-items-center justify-content-center flex-column"
+  style="background: url('{% static 'images/homepage4.jpg' %}') center/cover no-repeat; height: 350px;">
+  <div class="bg-dark bg-opacity-50 p-4 rounded">
+    <h1 class="display-5 fw-bold mb-2">Explore Freelance Gigs</h1>
+    <p class="lead">Browse top-rated services from talented freelancers</p>
+  </div>
+</section>
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-semibold text-dark">Available Gigs</h2>
+
+    <div class="row g-4 justify-content-center">
+      {% for gig in gigs %}
+      <div class="col-md-3 col-sm-6">
+        <div class="card shadow-sm border-0 h-100 hover-card">
+          <a href="{% url 'freelance_marketplace:gig_detail' gig.id %}">
+            {% if gig.image %}
+              <img src="{% static gig.image %}" class="card-img-top rounded-top" alt="{{ gig.title }}" style="height:200px; object-fit:cover;">
+            {% else %}
+              <img src="{% static 'images/data_analysis.png' %}" class="card-img-top rounded-top" alt="Default Gig" style="height:200px; object-fit:cover;">
+            {% endif %}
+          </a>
+          <div class="card-body text-center">
+            <h5 class="fw-semibold">{{ gig.title }}</h5>
+            <p class="text-muted small mb-1">Starting at ${{ gig.price }}</p>
+            <p class="text-warning small mb-2">⭐ {{ gig.average_rating|default:"No ratings yet" }}</p>
+
+            {% if user.is_authenticated and user.role == 'customer' %}
+              <form method="POST" action="{% url 'freelance_marketplace:order_gig' gig.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success btn-sm w-100">Order Now</button>
+              </form>
+            {% elif not user.is_authenticated %}
+              <a href="{% url 'freelance_marketplace:customer_login' %}" class="btn btn-outline-primary btn-sm w-100">Login to Order</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% empty %}
+        <p class="text-center text-muted">No gigs available at the moment.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hover-card {
+    transition: all 0.3s ease;
+    border-radius: 10px;
+  }
+  .hover-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+</style>
+
+{% endblock %}

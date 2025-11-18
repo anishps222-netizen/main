@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="category-section">
+  <h2 class="category-title">{{ category.name }}</h2>
+
+  <div class="gig-grid">
+    {% for gig in gigs %}
+    <div class="gig-card">
+      <img src="{{ gig.image.url }}" alt="{{ gig.title }}">
+      <div class="gig-info">
+        <h3>{{ gig.title }}</h3>
+        <p class="seller">by {{ gig.freelancer.username }}</p>
+        <div class="rating">⭐ {{ gig.average_rating }}</div>
+        <p class="price">From ${{ gig.price }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

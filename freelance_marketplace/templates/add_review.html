@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+    <h2>Add Review for {{ order.gig.title }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label>Rating (1-5):</label>
+        <input type="number" name="rating" min="1" max="5" class="form-control" required>
+        <label>Review:</label>
+        <textarea name="review_text" class="form-control" required></textarea>
+        <button type="submit" class="btn btn-success mt-3">Submit Review</button>
+    </form>
+</div>
+{% endblock %}

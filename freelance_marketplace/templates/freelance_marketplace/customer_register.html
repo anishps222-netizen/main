@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Customer Register | Freelance Workplace{% endblock %}
+
+{% block content %}
+<section class="py-5" style="min-height: 100vh; background: linear-gradient(135deg, #0f172a, #1e293b, #111827); color: #f1f1f1;">
+  <div class="container d-flex justify-content-center align-items-center">
+    <div class="card shadow-lg border-0 p-4 rounded-4" style="max-width: 500px; width: 100%; background-color: rgba(255,255,255,0.08); backdrop-filter: blur(8px);">
+      <div class="text-center mb-4">
+        <h3 class="fw-bold text-success">Create Your Account</h3>
+        <p class="text-light mb-0">Join Freelance Workplace to start your journey</p>
+      </div>
+
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+
+      <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label text-light">Username</label>
+          <input type="text" name="username" class="form-control bg-dark text-light border-secondary" required placeholder="Enter username">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-light">Email address</label>
+          <input type="email" name="email" class="form-control bg-dark text-light border-secondary" required placeholder="Enter your email">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-light">Password</label>
+          <input type="password" name="password" class="form-control bg-dark text-light border-secondary" required placeholder="Enter password">
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label text-light">Confirm Password</label>
+          <input type="password" name="confirm_password" class="form-control bg-dark text-light border-secondary" required placeholder="Confirm password">
+        </div>
+
+        <button type="submit" class="btn btn-success w-100 py-2">Sign Up</button>
+      </form>
+
+      <div class="text-center mt-3">
+        <p class="text-light">Already have an account?
+          <a href="{% url 'freelance_marketplace:customer_login' %}" class="text-success fw-semibold">Login here</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .btn-success {
+    background-color: #22c55e;
+    border: none;
+  }
+  .btn-success:hover {
+    background-color: #16a34a;
+  }
+  .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  }
+</style>
+{% endblock %}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Details | Freelancer Dashboard</title>
+</head>
+<body>
+  <h2>Order Details</h2>
+  <p><strong>Gig:</strong> {{ order.gig.title }}</p>
+  <p><strong>Customer:</strong> {{ order.customer.username }}</p>
+  <p><strong>Amount:</strong> ${{ order.payment_amount }}</p>
+  <p><strong>Status:</strong> {% if order.is_completed %}Completed{% else %}Pending{% endif %}</p>
+  <p><strong>Freelancer Confirmation:</strong> {{ order.freelancer_confirmation }}</p>
+
+  <a href="{% url 'freelance_marketplace:chat_with_customer' order.customer.id %}">Chat with Customer</a>
+  
+  {% if not order.is_completed %}
+    <a href="{% url 'freelance_marketplace:confirm_order' order.id %}">Confirm Order</a>
+    <a href="{% url 'freelance_marketplace:reject_order' order.id %}">Reject Order</a>
+  {% endif %}
+  
+  <br><br>
+  <a href="{% url 'freelance_marketplace:freelancer_dashboard' %}">Back to Dashboard</a>
+</body>
+</html>

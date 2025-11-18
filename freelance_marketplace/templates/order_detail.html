@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+    <h2>Order Details</h2>
+    <p>Gig: {{ order.gig.title }}</p>
+    <p>Price: ${{ order.gig.price }}</p>
+    <p>Status: {{ order.status }}</p>
+
+    {% if review %}
+        <h4>Your Review:</h4>
+        <p>Rating: {{ review.rating }}/5</p>
+        <p>{{ review.review_text }}</p>
+    {% elif order.status == 'Completed' and request.user.role == 'customer' %}
+        <a href="{% url 'freelance_marketplace:add_review' order.id %}" class="btn btn-primary">Add Review</a>
+    {% endif %}
+</div>
+{% endblock %}

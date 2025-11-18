@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About | Freelance Workplace{% endblock %}
+
+{% block content %}
+
+<section class="text-center text-white d-flex align-items-center justify-content-center flex-column"
+         style="background: url({% static "images/about_team.jpg" %}) center/cover no-repeat; height: 350px;">
+    <div class="bg-dark bg-opacity-50 p-4 rounded">
+        <h1 class="display-5 fw-bold mb-2">About Freelance Workplace</h1>
+        <p class="lead">Connecting talent and opportunity — one project at a time</p>
+    </div>
+</section>
+
+
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-4">
+        <img src="{% static 'images/about_team.jpg' %}" class="img-fluid rounded shadow-sm" alt="Our Team">
+      </div>
+      <div class="col-lg-6">
+        <h2 class="fw-bold text-success mb-3">What is Freelance Workplace?</h2>
+        <p class="text-muted mb-3">
+          Freelance Workplace is your one-stop platform for hiring skilled freelancers or offering your services
+          to clients across the globe. Whether you're a designer, developer, writer, or marketer — we make it simple
+          to connect, collaborate, and grow your freelance career.
+        </p>
+        <p class="text-muted">
+          We believe in empowering individuals and businesses to work without limits. Our mission is to create a
+          transparent, secure, and productive space for freelancers and clients alike.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5 text-center text-white" style="background: #198754;">
+  <div class="container">
+    <h2 class="fw-bold mb-4">Our Mission</h2>
+    <p class="lead mx-auto" style="max-width: 800px;">
+      To empower freelancers and entrepreneurs by creating a global digital ecosystem where creativity meets opportunity.
+    </p>
+  </div>
+</section>
+{% endblock %}
