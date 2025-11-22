@@ -2,20 +2,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.contrib.auth.decorators import login_required,user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Sum, Count
 from django.db.models.signals import post_migrate
 from django.dispatch import receiver
 from django.apps import AppConfig
 from django.db.models.signals import post_migrate
-from .models import Category, Freelancer, Notification, Customer, Gig, GigOrder, Order, Review, ProjectPost, CustomUser
+from .models import Category, Freelancer, Notification, Customer, Gig, GigOrder, Order, Review, ProjectPost
 from .models import Order, ChatMessage
-from .forms import SignUpForm, RegisterForm
-from django.core.mail import send_mail
+from .forms import SignUpForm
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.http import JsonResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.http import HttpResponse

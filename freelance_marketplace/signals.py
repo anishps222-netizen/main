@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save, post_migrate
 from django.dispatch import receiver
-from .models import Order, Notification, Category
+from .models import Order, Notification
 
 @receiver(post_save, sender=Order)
 def create_notification(sender, instance, created, **kwargs):
